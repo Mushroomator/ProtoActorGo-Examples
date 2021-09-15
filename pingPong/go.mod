@@ -1,4 +1,4 @@
-module PingPong
+module github.com/Mushroomator/ProtoActorGo-Examples/PingPong
 
 go 1.17
 
