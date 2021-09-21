@@ -10,8 +10,9 @@ Small, simple programs written in Go using proto.actor actor model framework to 
   - [Examples](#examples)
     - [How-To: Install and run examples](#how-to-install-and-run-examples)
     - [List of examples](#list-of-examples)
-      - [HelloWorld](#helloworld)
-      - [PingPong](#pingpong)
+      - [helloWorld](#helloworld)
+    - [actorLifecycle](#actorlifecycle)
+      - [pingPong](#pingpong)
   - [proto.actor: Documentation](#protoactor-documentation)
   - [License](#license)
 
@@ -53,10 +54,13 @@ HelloWorld
 ```
 
 ### List of examples
-#### HelloWorld
+#### helloWorld
 Classic hello world app which will greet you with the name supplied to the "HelloActor".
 
-#### PingPong
+### actorLifecycle
+An actor which goes through all the lifecycles an actor can have showing which messages are sent when and explaining what is going on in the background during each lifecycle and what are common operations to do during this lifecycle.
+
+#### pingPong
 Creates two actors which send "PING!" - "PONG!" messages two each other for eternity. 
 Shows the importance of knowing the difference between Tell(), Send() and Request() methods as outlined in this [blog post by Oklahomer](https://blog.oklahome.net/2018/09/protoactor-go-messaging-protocol.html).
 
