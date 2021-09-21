@@ -29,8 +29,13 @@ func main() {
 
 	// wait 10 seconds then kill actor
 	time.AfterFunc(10*time.Second, func() {
-		logger.Println("Killing actor.")
+		// kills actor immediately (= no more messages of mailbox will be processed)
+		logger.Println("Killing actor immediately.")
 		system.Root.Stop(pid)
+
+		// Important distinction! Poison will stop actor after all messages currently in the mailbox are processed!
+		//logger.Println("Killing actor after it has processed all messages in its mailbox.")
+		// system.Root.Poison(pid)
 	})
 
 	// keep program running till enter is hit
