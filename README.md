@@ -69,12 +69,14 @@ Shows the importance of knowing the difference between `Tell()`, `Send()` and `R
 Shows how one can dynamically change how an actor handles messages by using `behavior`.
 The program will run in an infinite loop (stop it with CTLR + C) 
 
-
 ## proto.actor: Documentation
 There is hardly any documentation available for Go, but there are a few helpful ressources for C# and the basic concepts:
 - [proto.actor website](https://proto.actor/): This is the website for the proto.actor project
 - [proto.actor Github repository for Go](https://github.com/AsynkronIT/protoactor-go): Contains all the code and some examples
 - [proto.actor Bootcamp](https://proto.actor/docs/bootcamp/): Best starting point; explains basic concepts and introduces you step-by-step to the components of the library; it is written for C# only though
 - [protoactro-go 101: Blog post by Oklahomer](https://blog.oklahome.net/2018/07/protoactor-go-introduction.html): First of a series of very inforamtive blog posts written by Oklahomer which introduces the basics of proto.actor when using Go and also provides links to example code and further ressources.
+
 ## License
-This work is licensed under the [Apache 2.0 license](LICENSE).
+Copyright (c) 2021 Thomas Pilz
+
+This work is licensed under the [Apache 2.0 license](LICENSE). You may not use the content of this repository except in compliance with the license. You may obtain a copy of the license at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
