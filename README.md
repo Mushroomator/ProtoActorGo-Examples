@@ -58,16 +58,24 @@ HelloWorld
 #### helloWorld
 Classic hello world app which will greet you with the name supplied to the "HelloActor".
 
+See code [here](helloWorld/main.go).
+
 #### actorLifecycle
 An actor which goes through all the `lifecycles` an actor can have showing which messages are sent when and explaining what is going on in the background during each lifecycle and what are common operations to do during this lifecycle.
+
+See code [here](actorLifecycle/main.go).
 
 #### pingPong
 Creates two actors which send "PING!" - "PONG!" messages two each other for eternity. 
 Shows the importance of knowing the difference between `Tell()`, `Send()` and `Request()` methods as outlined in this [blog post by Oklahomer](https://blog.oklahome.net/2018/09/protoactor-go-messaging-protocol.html).
 
+See code [here](pingPong/main.go).
+
 #### behavior
 Shows how one can dynamically change how an actor handles messages by using `behavior`.
-The program will run in an infinite loop (stop it with CTLR + C) 
+The program will run in an infinite loop (stop it with `CTLR + C`)
+
+See code [here](behavior/main.go).
 
 ## proto.actor: Documentation
 There is hardly any documentation available for Go, but there are a few helpful ressources for C# and the basic concepts:
