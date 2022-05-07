@@ -8,7 +8,9 @@ import (
 )
 
 type Hello struct{ Who string }
-type HelloActor struct{}
+type HelloActor struct {
+	name string
+}
 
 func main() {
 	fmt.Printf("> Stop program by hitting [ENTER]\n\n")
