@@ -15,6 +15,7 @@ Small, simple programs written in Go using proto.actor actor model framework to 
       - [pingPong](#pingpong)
       - [behavior](#behavior)
       - [unboundedNonDeterminism](#unboundednondeterminism)
+      - [remoting](#remoting)
   - [proto.actor: Documentation](#protoactor-documentation)
   - [License](#license)
 
@@ -82,6 +83,12 @@ See code [here](behavior/main.go).
 Showcases a simple actor machine that counts up to an arbitrarily large number but is guaranteed to halt. This is something a non-deterministic Turing machine cannot due and therefore shows that the Turing model is limited in that respect in contrast to the actor model. See video of [Carl Hewitt (Creator of the Actor model) explaining this on Code BEAM SF 2020](https://www.youtube.com/watch?v=PJ4X0l2298k&list=PLDO04qnOyjC_aY9eVFEwbjYeolz3WCaUR&index=2&t=2s) starting from 42m 30s.
 
 See code [here](unboundedNonDeterminism/main.go).
+
+#### remoting
+Shows how Proto.Remote can be leveraged to spawn actors of a known kind on specific nodes.
+Start *node2* before *node1*.
+ 
+See code [here](remoting/).
 
 ## proto.actor: Documentation
 There is hardly any documentation available for Go, but there are a few helpful ressources for C# and the basic concepts:

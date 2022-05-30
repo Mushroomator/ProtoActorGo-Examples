@@ -1,0 +1,6 @@
+syntax = "proto3";
+package messages;
+option go_package = "github.com/Mushroomator/ProtoActorGo-Examples/remoting/messages";
+import "actor/actor.proto";
+
+message Count{}

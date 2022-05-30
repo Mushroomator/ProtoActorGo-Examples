@@ -1,0 +1,2 @@
+# generete Go code for (de)serialization using protobuf defnitions used in Proto.Actor
+protoc -I=. --go_out=. --go_opt=paths=source_relative --proto_path=$(go list -f '{{ .Dir }}' -m github.com/asynkron/protoactor-go) *.proto

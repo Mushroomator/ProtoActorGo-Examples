@@ -19,7 +19,7 @@ func main() {
 	// create actor system
 	system := actor.NewActorSystem()
 	// spawn an actor
-	actorProps := actor.PropsFromProducer(func() actor.Actor { return &UnboundedNonDetActor{} })
+	actorProps := actor.PropsFromProducer(func() actor.Actor { return &UnboundedNonDetActor{counter: 0} })
 	pidUndActor := system.Root.Spawn(actorProps)
 
 	sendMessage := func(msg interface{}) {
