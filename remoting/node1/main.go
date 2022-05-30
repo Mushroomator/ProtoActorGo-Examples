@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"os/signal"
+	"reflect"
 	"time"
 
 	"github.com/Mushroomator/ProtoActorGo-Examples/remoting/messages"
@@ -20,21 +21,25 @@ func check(err error) {
 
 func main() {
 	system := actor.NewActorSystem()
-	options := remote.Configure("127.0.0.1", 8080)
+	kind := remote.NewKind("counter", actor.PropsFromProducer(func() actor.Actor {
+		return NewCounterActor()
+	}))
+	options := remote.Configure("127.0.0.1", 8080, remote.WithKinds(kind))
 	remoter := remote.NewRemote(system, options)
 	// start gRPC server
 	remoter.Start()
-	// counter1, err := remoter.SpawnNamed("127.0.0.1:8081", "counter1", "counter", time.Second*10)
-	// check(err)
-	// fmt.Println("Actor gespawned")
+	// spawn two remote actors on different nodes
 	counter1, err := remoter.Spawn("127.0.0.1:8081", "counter", time.Second*10)
 	check(err)
 	counter2, err := remoter.Spawn("127.0.0.1:8081", "counter", time.Second*10)
 	check(err)
-	counter3, err := remoter.Spawn("127.0.0.1:8081", "counter", time.Second*10)
+	// spawn an actor on this node
+	counter3, err := remoter.Spawn("127.0.0.1:8080", "counter", time.Second*10)
 	check(err)
 
+	// seed the RNG
 	rand.Seed(time.Now().UnixMicro())
+
 	expectedCount1 := rand.Intn(10)
 	for i := 0; i < expectedCount1; i++ {
 		system.Root.Send(counter1.GetPid(), &messages.Count{})
@@ -53,6 +58,7 @@ func main() {
 	}
 	fmt.Printf("Counter 3 should count up to %v.\n", expectedCount3)
 
+	// kill the actors
 	system.Root.Poison(counter1.GetPid())
 	system.Root.Poison(counter2.GetPid())
 	system.Root.Poison(counter3.GetPid())
@@ -63,4 +69,34 @@ func main() {
 	fmt.Println("Shutting down node...")
 	remoter.Shutdown(false)
 
+}
+
+type CounterActor struct {
+	counter int
+}
+
+func NewCounterActor() *CounterActor {
+	return &CounterActor{
+		counter: 0,
+	}
+}
+
+func (state *CounterActor) handleShutdown(c actor.Context) {
+	fmt.Printf("Actor %v counted up to %v\n", c.Self().String(), state.counter)
+}
+
+func (state *CounterActor) Receive(c actor.Context) {
+	fmt.Printf("%v\n", reflect.TypeOf(c.Message()).String())
+	switch c.Message().(type) {
+	case *actor.Started:
+		fmt.Printf("Started actor %v\n", c.Self().String())
+	case *messages.Count:
+		state.counter++
+	case *actor.Stopping:
+		state.handleShutdown(c)
+	case *remote.EndpointTerminatedEvent:
+		state.handleShutdown(c)
+	case *actor.Terminated:
+		state.handleShutdown(c)
+	}
 }

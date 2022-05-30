@@ -37,6 +37,10 @@ func NewCounterActor() *CounterActor {
 	}
 }
 
+func (state *CounterActor) handleShutdown(c actor.Context) {
+	fmt.Printf("Actor %v counted up to %v\n", c.Self().String(), state.counter)
+}
+
 func (state *CounterActor) Receive(c actor.Context) {
 	switch c.Message().(type) {
 	case *actor.Started:
@@ -44,6 +48,10 @@ func (state *CounterActor) Receive(c actor.Context) {
 	case *messages.Count:
 		state.counter++
 	case *actor.Stopping:
-		fmt.Printf("Actor %v counted up to %v\n", c.Self().String(), state.counter)
+		state.handleShutdown(c)
+	case *remote.EndpointTerminatedEvent:
+		state.handleShutdown(c)
+	case *actor.Terminated:
+		state.handleShutdown(c)
 	}
 }
